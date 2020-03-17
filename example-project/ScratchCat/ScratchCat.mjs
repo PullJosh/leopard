@@ -16,7 +16,12 @@ export default class ScratchCat extends Sprite {
 
     this.triggers = [
       new Trigger(Trigger.CLICKED, this.whenthisspriteclicked),
-      new Trigger(Trigger.GREEN_FLAG, this.whenGreenFlagClicked)
+      new Trigger(Trigger.GREEN_FLAG, this.whenGreenFlagClicked),
+      new Trigger(
+        Trigger.BACKDROP_CHANGED,
+        { backdrop: "scratchCat" },
+        this.whenBackdropChanged
+      )
     ];
   }
 
@@ -26,5 +31,9 @@ export default class ScratchCat extends Sprite {
 
   *whenGreenFlagClicked() {
     this.costume = "costume1";
+  }
+
+  *whenBackdropChanged() {
+      yield* this.sayAndWait("It's me!", 2);
   }
 }
